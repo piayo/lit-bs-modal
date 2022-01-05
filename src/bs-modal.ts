@@ -1,56 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 
-export function tick(cb: FrameRequestCallback): number {
-  return requestAnimationFrame(cb);
-}
-
-export function cancelAnims(ele: HTMLElement): void {
-  ele.getAnimations().forEach((anim) => anim.cancel());
-}
-
-export function showAnim(ele: HTMLElement, msec: number): Promise<Animation> {
-  const anim = ele.animate(
-    [
-      { opacity: 0, transform: 'translate3d(0, -20px, 0)' },
-      { opacity: 1, transform: 'translate3d(0,   0px, 0)' },
-    ],
-    {
-      delay: 0,
-      easing: 'ease-out',
-      duration: msec,
-    }
-  );
-  return new Promise((resolve) => {
-    anim.finished.then(() => resolve(anim)).catch(() => {}); // noop, Abort Error
-  });
-}
-
-export function hideAnim(ele: HTMLElement, msec: number): Promise<Animation> {
-  const anim = ele.animate(
-    [
-      { opacity: 1, transform: 'translate3d(0,   0px, 0)' },
-      { opacity: 0, transform: 'translate3d(0, -20px, 0)' },
-    ],
-    {
-      delay: 0,
-      easing: 'ease-in',
-      duration: msec,
-    }
-  );
-  return new Promise((resolve) => {
-    anim.finished.then(() => resolve(anim)).catch(() => {}); // noop, Abort Error
-  });
-}
-
-export function getFocusElement(): Element | undefined {
-  return document.activeElement || undefined;
-}
-
-export function createEvent(eventName: string): CustomEvent {
-  return new CustomEvent(eventName, { bubbles: true, cancelable: true });
-}
-
 @customElement('bs-modal')
 export class BsModalElement extends LitElement {
   static styles = css`
@@ -218,6 +168,56 @@ export class BsModalElement extends LitElement {
       </div>
     `;
   }
+}
+
+export function tick(cb: FrameRequestCallback): number {
+  return requestAnimationFrame(cb);
+}
+
+export function cancelAnims(ele: HTMLElement): void {
+  ele.getAnimations().forEach((anim) => anim.cancel());
+}
+
+export function showAnim(ele: HTMLElement, msec: number): Promise<Animation> {
+  const anim = ele.animate(
+    [
+      { opacity: 0, transform: 'translate3d(0, -20px, 0)' },
+      { opacity: 1, transform: 'translate3d(0,   0px, 0)' },
+    ],
+    {
+      delay: 0,
+      easing: 'ease-out',
+      duration: msec,
+    }
+  );
+  return new Promise((resolve) => {
+    anim.finished.then(() => resolve(anim)).catch(() => {}); // noop, Abort Error
+  });
+}
+
+export function hideAnim(ele: HTMLElement, msec: number): Promise<Animation> {
+  const anim = ele.animate(
+    [
+      { opacity: 1, transform: 'translate3d(0,   0px, 0)' },
+      { opacity: 0, transform: 'translate3d(0, -20px, 0)' },
+    ],
+    {
+      delay: 0,
+      easing: 'ease-in',
+      duration: msec,
+    }
+  );
+  return new Promise((resolve) => {
+    anim.finished.then(() => resolve(anim)).catch(() => {}); // noop, Abort Error
+  });
+}
+
+export function getFocusElement(): Element | undefined {
+  return document.activeElement || undefined;
+}
+
+export function createEvent(eventName: string): CustomEvent {
+  return new CustomEvent(eventName, { bubbles: true, cancelable: true });
 }
 
 declare global {
