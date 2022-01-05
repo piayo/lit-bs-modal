@@ -1,42 +1,11 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 
-const WC_TAGNAME = 'bs-modal';
-
-const modalCSS = css`
-.backdrop {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.5);
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
-#container {
-  display: block;
-  position: relative;
-  pointer-events: none;
-  transform-origin: 50% 0%;
-}
-
-#slot {
-    pointer-events: auto;
-    display: block;
-    position: relative;
-    background-color: #fff;
-    width: 600px;
-    margin: 20px auto;
-    padding: 1px 0;
-}
-`;
-
 export function tick(cb: FrameRequestCallback): number {
   return requestAnimationFrame(cb);
 }
 
-export function cancelAnim(ele: HTMLElement): void {
+export function cancelAnims(ele: HTMLElement): void {
   ele.getAnimations().forEach((anim) => anim.cancel());
 }
 
@@ -82,9 +51,36 @@ export function createEvent(eventName: string): CustomEvent {
   return new CustomEvent(eventName, { bubbles: true, cancelable: true });
 }
 
-@customElement(WC_TAGNAME)
+@customElement('bs-modal')
 export class BsModalElement extends LitElement {
-  static styles = [modalCSS];
+  static styles = css`
+  .backdrop {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      overflow-x: hidden;
+      overflow-y: auto;
+  }
+  
+  #container {
+    display: block;
+    position: relative;
+    pointer-events: none;
+    transform-origin: 50% 0%;
+  }
+  
+  #slot {
+      pointer-events: auto;
+      display: block;
+      position: relative;
+      background-color: #fff;
+      width: 600px;
+      margin: 20px auto;
+      padding: 1px 0;
+  }
+  `;
 
   @property({ type: Boolean }) isOpen = false;
   @property({ type: Boolean }) isClosed = true;
@@ -109,7 +105,7 @@ export class BsModalElement extends LitElement {
     this.isOpen = true;
     this.isClosed = false;
     document.body.classList.add('modal-open');
-    cancelAnim(this.container);
+    cancelAnims(this.container);
 
     // "show.bs.modal" event be fired.
     this.dispatchEvent(createEvent('show'));
@@ -134,7 +130,7 @@ export class BsModalElement extends LitElement {
 
     document.body.classList.remove('modal-open');
     this.isOpen = false;
-    cancelAnim(this.container);
+    cancelAnims(this.container);
 
     // "hide.bs.modal" event be fired.
     this.dispatchEvent(createEvent('hide'));
@@ -226,6 +222,6 @@ export class BsModalElement extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    [WC_TAGNAME]: BsModalElement;
+    'bs-modal': BsModalElement;
   }
 }

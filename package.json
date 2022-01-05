@@ -6,7 +6,10 @@
     ".": "./dist/bs-modal.es.js"
   },
   "types": "types/bs-modal.d.ts",
-  "files": ["dist", "types"],
+  "files": [
+    "dist",
+    "types"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
