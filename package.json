@@ -1,0 +1,22 @@
+{
+  "name": "lit-bs-modal",
+  "version": "0.1.0",
+  "main": "dist/bs-modal.es.js",
+  "exports": {
+    ".": "./dist/bs-modal.es.js"
+  },
+  "types": "types/bs-modal.d.ts",
+  "files": ["dist", "types"],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "lit": "^2.0.2"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.4",
+    "vite": "^2.7.2"
+  }
+}

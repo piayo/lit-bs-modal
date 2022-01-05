@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/src/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bs-modal component demo</title>
+    <script type="module" src="/src/bs-modal.ts"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      bs-modal {
+        position: fixed;
+        inset: 0;
+        overflow-y: auto;
+        z-index: 1;
+        overscroll-behavior: contain;
+      }
+      bs-modal[hidden] {
+        display: none;
+      }
+
+      body.modal-open {
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>bs-modal component demo</h1>
+    <p>
+      <button type="button" class="btn">open</button>
+    </p>
+    <bs-modal
+      id="my-modal"
+      anim-msec="300"
+      backdrop="true"
+      keyboard="true"
+      width="200px"
+      hidden
+    >
+      <p>text content.</p>
+      <button type="button" data-dismiss="modal">close</button>
+      <div style="height: 500px"></div>
+      <button type="button">not close button</button>
+      <div style="height: 500px"></div>
+      <button type="button" data-dismiss="modal">close</button>
+    </bs-modal>
+    <div style="height: 1000px"></div>
+    <p>
+      <button type="button" class="btn">open</button>
+    </p>
+    <script>
+      $(() => {
+        const $myModal = $('#my-modal')
+          .on('show.bs.modal', () => {
+            console.log('>> show.bs.modal');
+          })
+          .on('shown.bs.modal', () => {
+            console.log('>> shown.bs.modal');
+          })
+          .on('hide.bs.modal', () => {
+            console.log('>> hide.bs.modal');
+          })
+          .on('hidden.bs.modal', () => {
+            console.log('>> hidden.bs.modal');
+          });
+
+        $('.btn').on('click', () => {
+          $myModal.get(0).show();
+          // $myModal.get(0).hide();
+          // $myModal.get(0).toggle();
+        });
+
+        // $(document).on('click', () => $myModal.get(0).toggle());
+      });
+    </script>
+  </body>
+</html>
